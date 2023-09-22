@@ -1,0 +1,38 @@
+map=*# \i session_2.sql
+psql:session_2.sql:2: WARNING:  there is already a transaction in progress
+BEGIN
+UPDATE 1
+UPDATE 1
+map=*# rollback
+map-*# ;
+ROLLBACK
+map=# \i session_1.sql
+BEGIN
+UPDATE 1
+map=*# rollback;
+ROLLBACK
+map=# \i session_1.sql
+BEGIN
+UPDATE 1
+map=*# \i session_1.sql
+psql:session_1.sql:2: WARNING:  there is already a transaction in progress
+BEGIN
+UPDATE 1
+map=*# UPDATE books SET title = 'SQL Basics (Updated by Librarian 2)', last_updated = NOW(), updated_by = 2 WHERE id = 1;
+UPDATE 1
+map=*# rollback
+map-*# ;
+ROLLBACK
+map=# Begin;
+BEGIN
+map=*# update books set title = 'Bla' where id = 1;
+UPDATE 1
+map=*# update books set title = 'Bla2' where id = 2;
+ERROR:  deadlock detected
+DETAIL:  Process 1444 waits for ShareLock on transaction 1101; blocked by process 2196.
+Process 2196 waits for ShareLock on transaction 1100; blocked by process 1444.
+HINT:  See server log for query details.
+CONTEXT:  while updating tuple (0,2) in relation "books"
+map=!# commit;
+ROLLBACK
+map=#

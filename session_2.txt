@@ -1,0 +1,34 @@
+PS C:\Users\edwar\OneDrive\Desktop\test\exercises\advanced_next> psql -U postgres
+Password for user postgres:
+psql (15.4)
+WARNING: Console code page (866) differs from Windows code page (1251)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# \c map
+You are now connected to database "map" as user "postgres".
+map=# \i session_2.sql
+BEGIN
+UPDATE 1
+UPDATE 1
+map=*# rollback
+map-*# ;
+ROLLBACK
+map=# \i session_2.sql
+BEGIN
+UPDATE 1
+UPDATE 1
+map=*# rollback
+map-*# ;
+ROLLBACK
+map=# Begin;
+BEGIN
+map=*# update books set title = 'Bla2' where id = 2;
+UPDATE 1
+map=*# update books set title = 'Bla1' where id = 1;
+UPDATE 1
+map=*# commit;
+COMMIT
+map=#
+

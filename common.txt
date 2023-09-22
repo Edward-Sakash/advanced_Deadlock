@@ -1,0 +1,39 @@
+PS C:\Users\edwar\OneDrive\Desktop\test\exercises\advanced_next> psql -U postgres
+Password for user postgres: 
+psql (15.4)
+WARNING: Console code page (866) differs from Windows code page (1251)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# \c map
+You are now connected to database "map" as user "postgres".
+map=# SELECT relation::regclass, mode, granted
+map-# FROM pg_locks
+map-# WHERE relation = 'books'::regclass;
+ relation |       mode       | granted
+----------+------------------+---------
+ books    | RowExclusiveLock | t
+ books    | RowExclusiveLock | t
+ books    | ExclusiveLock    | t
+(3 rows)
+
+
+map=# SELECT relation::regclass, mode, granted
+map-# FROM pg_locks
+map-# WHERE relation = 'books'::regclass;
+ relation |       mode       | granted
+----------+------------------+---------
+ books    | RowExclusiveLock | t
+(1 row)
+
+
+map=# SELECT relation::regclass, mode, granted
+map-# FROM pg_locks
+map-# WHERE relation = 'books'::regclass;
+ relation | mode | granted
+----------+------+---------
+(0 rows)
+
+
+map=#
